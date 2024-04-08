@@ -1,3 +1,5 @@
+"use strict";
+
 function getComputerChoice() {
     let computerChoice = Math.floor(Math.random() * 3);
     if (computerChoice === 0) {
@@ -13,8 +15,8 @@ function getComputerChoice() {
 
 function playRound(playerSelection,computerSelection) {
     playerSelection = playerSelection.toLowerCase();
-    playerText = playerSelection.replace(playerSelection[0],playerSelection[0].toUpperCase());
-    computerText = computerSelection.replace(computerSelection[0],computerSelection[0].toUpperCase());
+    let playerText = playerSelection.replace(playerSelection[0],playerSelection[0].toUpperCase());
+    let computerText = computerSelection.replace(computerSelection[0],computerSelection[0].toUpperCase());
 
     if (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
         return "Invalid choice! Pick either rock, paper or scissors"
@@ -26,7 +28,7 @@ function playRound(playerSelection,computerSelection) {
 
     if (playerSelection === "rock") {
         if (computerSelection === "paper") {
-            return `You lost! ${computerText} beats ${playerText}`;
+            return `You lose! ${computerText} beats ${playerText}`;
         }
 
         if (computerSelection === "scissors") {
@@ -36,7 +38,7 @@ function playRound(playerSelection,computerSelection) {
 
     if (playerSelection === "paper") {
         if (computerSelection === "scissors") {
-            return `You lost! ${computerText} beats ${playerText}`;
+            return `You lose! ${computerText} beats ${playerText}`;
         }
 
         if (computerSelection === "rock") {
@@ -46,7 +48,7 @@ function playRound(playerSelection,computerSelection) {
 
     if (playerSelection === "scissors") {
         if (computerSelection === "rock") {
-            return `You lost! ${computerText} beats ${playerText}`;
+            return `You lose! ${computerText} beats ${playerText}`;
         }
 
         if (computerSelection === "paper") {
@@ -55,4 +57,36 @@ function playRound(playerSelection,computerSelection) {
     }
 }
 
-console.log(playRound("Rock",getComputerChoice()));
+function playGame() {
+    let roundCount = 5;
+    let playerScore = 0;
+    let computerScore = 0;
+    let roundResult = "";
+
+    for(let round = 1; round <= roundCount; round++) {
+        roundResult = playRound(prompt("Rock, paper or scissors?"),getComputerChoice());
+        console.log(roundResult);
+        if (roundResult.includes("tie")) {
+            console.log(`Your score: ${playerScore}`);
+            console.log(`Opponent's score: ${computerScore}`);
+            continue;
+        }
+
+        if (roundResult.includes("lose")) {
+            computerScore++;
+            console.log(`Your score: ${playerScore}`);
+            console.log(`Opponent's score: ${computerScore}`);
+            continue;
+        }
+
+        if (roundResult.includes("win")) {
+            playerScore++;
+            console.log(`Your score: ${playerScore}`);
+            console.log(`Opponent's score: ${computerScore}`);
+            continue;
+        }
+
+    }
+}
+
+playGame();
