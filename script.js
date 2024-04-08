@@ -18,41 +18,43 @@ function playRound(playerSelection,computerSelection) {
 
     // Capitalize first word of both player,
     // and computer choices for presentation
-    let playerText = playerSelection.replace(playerSelection[0],playerSelection[0].toUpperCase());
-    let computerText = computerSelection.replace(computerSelection[0],computerSelection[0].toUpperCase());
+    let playerCapitalized = 
+      playerSelection.replace(playerSelection[0],playerSelection[0].toUpperCase());
+    let computerCapitalized = 
+      computerSelection.replace(computerSelection[0],computerSelection[0].toUpperCase());
 
     if (playerSelection !== "rock" && playerSelection !== "paper" && playerSelection !== "scissors") {
         return "Invalid choice! Pick either rock, paper or scissors"
     }
     
     if (playerSelection === computerSelection) {
-        return `It's a tie! ${playerText} doesn't beat ${computerText}`;
+        return `It's a tie! ${playerCapitalized} doesn't beat ${computerCapitalized}`;
     }
 
     if (playerSelection === "rock") {
         if (computerSelection === "paper") {
-            return `You lose! ${computerText} beats ${playerText}`;
+            return `You lose! ${computerCapitalized} beats ${playerCapitalized}`;
         }
         else {
-            return `You win! ${playerText} beats ${computerText}`;
+            return `You win! ${playerCapitalized} beats ${computerCapitalized}`;
         }
     }
 
     if (playerSelection === "paper") {
         if (computerSelection === "scissors") {
-            return `You lose! ${computerText} beats ${playerText}`;
+            return `You lose! ${computerCapitalized} beats ${playerCapitalized}`;
         }
         else {
-            return `You win! ${playerText} beats ${computerText}`;
+            return `You win! ${playerCapitalized} beats ${computerCapitalized}`;
         }
     }
 
     if (playerSelection === "scissors") {
         if (computerSelection === "rock") {
-            return `You lose! ${computerText} beats ${playerText}`;
+            return `You lose! ${computerCapitalized} beats ${playerCapitalized}`;
         }
         else {
-            return `You win! ${playerText} beats ${computerText}`;
+            return `You win! ${playerCapitalized} beats ${computerCapitalized}`;
         }
     }
 }
