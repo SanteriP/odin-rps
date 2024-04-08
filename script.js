@@ -15,6 +15,9 @@ function getComputerChoice() {
 
 function playRound(playerSelection,computerSelection) {
     playerSelection = playerSelection.toLowerCase();
+
+    // Capitalize first word of both player,
+    // and computer choices for presentation
     let playerText = playerSelection.replace(playerSelection[0],playerSelection[0].toUpperCase());
     let computerText = computerSelection.replace(computerSelection[0],computerSelection[0].toUpperCase());
 
@@ -92,25 +95,25 @@ function playGame() {
         console.log(roundResult);
     }
 
-    // Tie
+    // Tie state
     if (playerScore === computerScore) {
-        console.log(`The game has finished!
-You tied with a score of ${playerScore} - ${computerScore}!
-Perhaps it's time for a rematch!`);
+        console.log("The game has finished!\ŋ"
+        + "You tied with a score of " + playerScore + " - " + computerScore + "!\n"
+        + "Perhaps it's time for a rematch!");
     }
 
-    // Lose
+    // Lose state
     if (playerScore < computerScore) {
-        console.log(`The game has finished! 
-You lose with a score of ${playerScore} - ${computerScore}...
-Better luck next time!`);
+        console.log("The game has finished!\n"
+        + "You lose with a score of " + playerScore + " - " + computerScore + "...\n"
+        + "Better luck next time!");
     }
 
-    // Win
+    // Win state
     if (playerScore > computerScore) {
-        console.log(`The game has finished!
-You win with a score of ${playerScore} - ${computerScore}!
-Nicely done!`);
+        console.log("The game has finished!\n"
+        + "You win with a score of " + playerScore + " - " + computerScore + "!\n"
+        + "Nicely done!");
     }
 
     return "Something went wrong along the way, because this text should NEVER be printed";
