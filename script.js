@@ -30,8 +30,7 @@ function playRound(playerSelection,computerSelection) {
         if (computerSelection === "paper") {
             return `You lose! ${computerText} beats ${playerText}`;
         }
-
-        if (computerSelection === "scissors") {
+        else {
             return `You win! ${playerText} beats ${computerText}`;
         }
     }
@@ -40,8 +39,7 @@ function playRound(playerSelection,computerSelection) {
         if (computerSelection === "scissors") {
             return `You lose! ${computerText} beats ${playerText}`;
         }
-
-        if (computerSelection === "rock") {
+        else {
             return `You win! ${playerText} beats ${computerText}`;
         }
     }
@@ -50,8 +48,7 @@ function playRound(playerSelection,computerSelection) {
         if (computerSelection === "rock") {
             return `You lose! ${computerText} beats ${playerText}`;
         }
-
-        if (computerSelection === "paper") {
+        else {
             return `You win! ${playerText} beats ${computerText}`;
         }
     }
@@ -91,24 +88,25 @@ function playGame() {
             continue;
         }
 
-        if (roundResult.includes("Invalid")) {
-            console.log(roundResult);
-            continue;
-        }
+        // Invalid choice
+        console.log(roundResult);
     }
 
+    // Tie
     if (playerScore === computerScore) {
         console.log(`The game has finished!
 You tied with a score of ${playerScore} - ${computerScore}!
 Perhaps it's time for a rematch!`);
     }
 
+    // Lose
     if (playerScore < computerScore) {
         console.log(`The game has finished! 
 You lose with a score of ${playerScore} - ${computerScore}...
 Better luck next time!`);
     }
 
+    // Win
     if (playerScore > computerScore) {
         console.log(`The game has finished!
 You win with a score of ${playerScore} - ${computerScore}!
