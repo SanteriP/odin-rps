@@ -59,14 +59,15 @@ function playRound(playerSelection,computerSelection) {
 
 function playGame() {
     let roundCount = 5;
+    let round = 1;
     let playerScore = 0;
     let computerScore = 0;
     let roundResult = "";
 
-    for(let round = 1; round <= roundCount; round++) {
+    while(round <= roundCount) {
         roundResult = playRound(prompt("Rock, paper or scissors?"),getComputerChoice());
-        console.log(roundResult);
         if (roundResult.includes("tie")) {
+            console.log(roundResult);
             console.log(`Your score: ${playerScore}`);
             console.log(`Opponent's score: ${computerScore}`);
             continue;
@@ -74,19 +75,47 @@ function playGame() {
 
         if (roundResult.includes("lose")) {
             computerScore++;
+            console.log(roundResult);
             console.log(`Your score: ${playerScore}`);
             console.log(`Opponent's score: ${computerScore}`);
+            round++;
             continue;
         }
 
         if (roundResult.includes("win")) {
             playerScore++;
+            console.log(roundResult);
             console.log(`Your score: ${playerScore}`);
             console.log(`Opponent's score: ${computerScore}`);
+            round++;
             continue;
         }
 
+        if (roundResult.includes("Invalid")) {
+            console.log(roundResult);
+            continue;
+        }
     }
+
+    if (playerScore === computerScore) {
+        console.log(`The game has finished!
+You tied with a score of ${playerScore} - ${computerScore}!
+Perhaps it's time for a rematch!`);
+    }
+
+    if (playerScore < computerScore) {
+        console.log(`The game has finished! 
+You lose with a score of ${playerScore} - ${computerScore}...
+Better luck next time!`);
+    }
+
+    if (playerScore > computerScore) {
+        console.log(`The game has finished!
+You win with a score of ${playerScore} - ${computerScore}!
+Nicely done!`);
+    }
+
+    return "Something went wrong along the way, because this text should NEVER be printed";
 }
 
 playGame();
