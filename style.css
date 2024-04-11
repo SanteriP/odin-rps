@@ -1,0 +1,81 @@
+html {
+    font-size: 1.6rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-ui {
+    width: 600px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid black;
+    border-radius: 40px;
+    background-color: aliceblue;
+    gap: 30px;
+    overflow: hidden;
+}
+
+#game-status {
+    text-align: center;
+    font-weight: 500;
+}
+
+@keyframes startAnimation {
+    0% {
+        transform: translateY(-1200px);
+        opacity: 0;
+    }
+
+    23% {
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+#player-buttons {
+    animation: 2s cubic-bezier(0,.95,.5,1) 0s 1 startAnimation;
+    animation-fill-mode: forwards;
+}
+
+button {
+    width: 150px;
+    height: 60px;
+    transform: scale(1);
+    font-size: 1.2rem;
+    border: 3px solid black;
+    border-radius: 10px;
+    background-color: lightblue;
+    color: black;
+    font-weight: 600;
+    margin: 10px;
+    transition:
+      transform 0.25s,
+      background-color 0.25s;
+}
+
+button:hover {
+    background-color: rgb(209, 243, 255);
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+#menu-buttons {
+    display: none;
+}
+
+#player-buttons {
+    display: block;
+}

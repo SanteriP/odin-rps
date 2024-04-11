@@ -1,5 +1,9 @@
 "use strict";
 
+let scoreLimit = 5;
+let playerScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
     let computerChoice = Math.floor(Math.random() * 3);
     if (computerChoice === 0) {
@@ -59,66 +63,103 @@ function playRound(playerSelection,computerSelection) {
     }
 }
 
-function playGame() {
-    let roundCount = 5;
-    let round = 1;
-    let playerScore = 0;
-    let computerScore = 0;
-    let roundResult = "";
+const selectionButtonsContainer = document.querySelector("#player-buttons");
+const menuButtonsContainer = document.querySelector("#menu-buttons");
+const selectionButtons = document.querySelectorAll(".player-selection");
+const buttons = document.querySelectorAll("button");
+const replayButton = document.querySelector("#menu-button1");
+const textField1 = document.querySelector("#text-field-1");
+const textField2 = document.querySelector("#text-field-2");
+const textField3 = document.querySelector("#text-field-3");
 
-    while(round <= roundCount) {
-        roundResult = playRound(prompt("Rock, paper or scissors?"),getComputerChoice());
+//animation scripts
+
+buttons.forEach((button) => {
+    button.addEventListener('mousedown', () => {
+        button.style.transform = "scale(1)";
+        button.style.backgroundColor = "white";
+        
+    });
+    document.addEventListener('mouseup', () => {
+        setTimeout(() => {
+            button.style.transform = "";
+            button.style.backgroundColor = "";
+        }, "50");
+    });
+    button.addEventListener('mouseleave', () => {
+        button.style.transform = "";
+        button.style.backgroundColor = "";
+    });
+})
+
+//functionality scripts
+
+selectionButtons.forEach((selectionButton) => {
+    selectionButton.addEventListener('click', (e) => {
+        gameStatusUpdater(playRound(selectionButton.textContent,getComputerChoice()));
+    });
+});
+
+replayButton.addEventListener('click', () => {
+    resetGame();
+});
+
+function gameStatusUpdater(roundResult) {
+    if (roundResult.includes("lose")) {
+        computerScore++;
+    }
+
+    if (roundResult.includes("win")) {
+        playerScore++;
+    }
+
+    if(playerScore < scoreLimit && computerScore < scoreLimit) {
         if (roundResult.includes("tie")) {
-            console.log(roundResult);
-            console.log(`Your score: ${playerScore}`);
-            console.log(`Opponent's score: ${computerScore}`);
-            continue;
+            textField1.textContent = roundResult;
+            textField2.textContent = `Your score: ${playerScore}`;
+            textField3.textContent = `Opponent's score: ${computerScore}`;
+            return;
         }
 
         if (roundResult.includes("lose")) {
-            computerScore++;
-            console.log(roundResult);
-            console.log(`Your score: ${playerScore}`);
-            console.log(`Opponent's score: ${computerScore}`);
-            round++;
-            continue;
+            textField1.textContent = roundResult;
+            textField2.textContent = `Your score: ${playerScore}`;
+            textField3.textContent = `Opponent's score: ${computerScore}`;
+            return;
         }
 
         if (roundResult.includes("win")) {
-            playerScore++;
-            console.log(roundResult);
-            console.log(`Your score: ${playerScore}`);
-            console.log(`Opponent's score: ${computerScore}`);
-            round++;
-            continue;
+            textField1.textContent = roundResult;
+            textField2.textContent = `Your score: ${playerScore}`;
+            textField3.textContent = `Opponent's score: ${computerScore}`;
+            return;
         }
 
         // Invalid choice
-        console.log(roundResult);
+        textField1.textContent = roundResult;
     }
-
-    // Tie state
-    if (playerScore === computerScore) {
-        console.log("The game has finished!\ŋ"
-        + "You tied with a score of " + playerScore + " - " + computerScore + "!\n"
-        + "Perhaps it's time for a rematch!");
+    else if (playerScore >= scoreLimit) {
+        textField1.textContent = `The game has finished!`;
+        textField2.textContent = `You win with a score of ${playerScore} - ${computerScore}!`
+        textField3.textContent = `Nicely done!`;
+        selectionButtonsContainer.style.display = "none";
+        menuButtonsContainer.style.display = "block";
     }
-
-    // Lose state
-    if (playerScore < computerScore) {
-        console.log("The game has finished!\n"
-        + "You lose with a score of " + playerScore + " - " + computerScore + "...\n"
-        + "Better luck next time!");
+    else if (computerScore >= scoreLimit) {
+        textField1.textContent = `The game has finished!`;
+        textField2.textContent = `You lose with a score of ${playerScore} - ${computerScore}...`;
+        textField3.textContent = `Better luck next time!`;
+        selectionButtonsContainer.style.display = "none";
+        menuButtonsContainer.style.display = "block";
     }
-
-    // Win state
-    if (playerScore > computerScore) {
-        console.log("The game has finished!\n"
-        + "You win with a score of " + playerScore + " - " + computerScore + "!\n"
-        + "Nicely done!");
-    }
-
-    return "Something went wrong along the way, because this text should NEVER be printed";
 }
 
-playGame();
+function resetGame() {
+    textField1.textContent = `Welcome to Rock, Paper, Scissors`;
+    textField2.textContent = `Make a choice and hope for the best`;
+    textField3.textContent = `Click on any button to begin`;
+    selectionButtonsContainer.style.display = "block";
+    menuButtonsContainer.style.display = "none";
+    playerScore = 0;
+    computerScore = 0;
+}
